@@ -65,7 +65,7 @@ void process_instruction() {
                     NEXT_STATE.PC += complemento2(16) * 4 - 4;
                 }
                 break;
-            case 8: // ADDI
+            case 8: // ADDI: for example, the opcode is 001000(base 2), so is 8(base 10)
                 immediate = complemento2(16);
                 NEXT_STATE.REGS[rt] = immediate + CURRENT_STATE.REGS[rs];
                 break;
@@ -140,6 +140,8 @@ int potencia(int num, int p) {
     return amount;
 }
 
+
+// Convert base 2 number into base 10 number. 
 int convert(int length) {
     int temp = 0;
     for(int i = 0; i < length; i++) {
@@ -187,15 +189,18 @@ void uintToStr(uint32_t u) {
     char h [50];
     int size = 0;
     sprintf(c, "%x", mem_read_32(NEXT_STATE.PC));
+    // Tamanho a partir do primeiro não nulo
     while(c[size] != '\0') {
         size++;
     }
+    // Poe zeros à esquera
     for(int i = 0; i < 8 - size; i++) {
         h[i] = '0';
     }
     for(int i = 8 - size; i < 8; i++) {
         h[i] = c[i - 8 + size];
     }
+    // Converte de HEX para BINARIO
 
     printf("h= %s   \n", h);
 
